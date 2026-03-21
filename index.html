@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DELASAC — Daily Tech Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────── */
+    :root {
+      --bg:        #ECEAE5;
+      --surface:   #F5F3EE;
+      --border:    #C8C5BC;
+      --text:      #1A1814;
+      --muted:     #7A776F;
+      --accent:    #0A5FFF;
+      --accent-dk: #0040CC;
+      --mono:      'IBM Plex Mono', monospace;
+      --sans:      'IBM Plex Sans', sans-serif;
+      --r:         6px;
+      --gap:       1.5rem;
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 15px; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100dvh;
+      /* subtle noise grain */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT ─────────────────────────────────────────────────── */
+    .wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      width: 100%;
+    }
+    
+    @media (max-width: 768px) {
+      .wrapper {
+        max-width: 100%;
+        padding: 0 1rem;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .wrapper {
+        max-width: 100%;
+        padding: 0 0.75rem;
+      }
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────────── */
+    header {
+      padding: 2rem 0 1.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: var(--gap);
+      width: 100%;
+    }
+    .header-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    
+    @media (max-width: 600px) {
+      header {
+        padding: 1.5rem 0 1rem;
+      }
+      .header-inner {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+    .site-tag {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+    .site-name {
+      font-family: var(--mono);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .site-desc {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 300;
+      letter-spacing: 0.01em;
+    }
+    
+    @media (max-width: 600px) {
+      .site-name {
+        font-size: 1.2rem;
+      }
+      .site-desc {
+        font-size: 0.7rem;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .site-name {
+        font-size: 1.1rem;
+      }
+      .site-desc {
+        font-size: 0.65rem;
+        margin-top: 0.3rem;
+      }
+    }
+    .live-dot {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--muted);
+      white-space: nowrap;
+      padding-top: 0.2rem;
+    }
+    .live-dot::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #22C55E;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.25);
+      animation: pulse 2.4s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 2px rgba(34,197,94,0.25); }
+      50%       { box-shadow: 0 0 0 5px rgba(34,197,94,0.1); }
+    }
+
+    /* ── SECTION LABEL ──────────────────────────────────────────── */
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    
+    @media (max-width: 600px) {
+      .section-label {
+        font-size: 0.55rem;
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    /* ── FEATURED INFOGRAPHIC ───────────────────────────────────── */
+    #featured { 
+      margin-bottom: 2.5rem; 
+      animation: fadeInDown 0.6s ease backwards;
+      width: 100%;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .featured-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s ease;
+      width: 100%;
+    }
+    .featured-card:hover { 
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .featured-images-wrap {
+        min-height: 600px;
+      }
+    }
+
+    .featured-meta {
+      padding: 0.9rem 1rem 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .featured-date {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      animation: slideInLeft 0.5s ease;
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-8px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .featured-badge {
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #fff;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(10, 95, 255, 0.4); }
+      50% { box-shadow: 0 0 0 4px rgba(10, 95, 255, 0.1); }
+    }
+
+    /* ── IMAGES SIDE-BY-SIDE (Desktop) ────────────────────────── */
+    .featured-images-wrap {
+      display: flex;
+      gap: 0;
+      background: #fff;
+      width: 100%;
+    }
+    .featured-img-col {
+      flex: 1;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+      position: relative;
+    }
+    .featured-img-col img,
+    .featured-img-col svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .featured-img-col label {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      background: rgba(255,255,255,0.9);
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      color: var(--muted);
+      z-index: 10;
+    }
+    
+    /* Tablet: Stack with good height */
+    @media (max-width: 1024px) {
+      .featured-img-col {
+        min-height: 350px;
+      }
+    }
+    
+    /* Mobile: Stack vertically */
+    @media (max-width: 768px) {
+      .featured-images-wrap {
+        flex-direction: column;
+      }
+      .featured-img-col {
+        min-height: 500px;
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .featured-images-wrap {
+        flex-direction: column;
+      }
+      .featured-img-col {
+        min-height: 450px;
+      }
+    }
+
+    .featured-img-wrap {
+      width: 100%;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+    }
+    .featured-img-wrap svg,
+    .featured-img-wrap img {
+      width: 100%;
+      height: auto;
+    }
+
+    .featured-footer {
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .featured-title {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      flex: 1;
+      min-width: 200px;
+    }
+    .featured-count {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    
+    @media (max-width: 600px) {
+      .featured-footer {
+        padding: 0.6rem 0.8rem;
+      }
+      .featured-title {
+        font-size: 0.65rem;
+        min-width: auto;
+      }
+      .featured-count {
+        font-size: 0.58rem;
+      }
+    }
+
+    /* ── ARCHIVE GRID ───────────────────────────────────────────── */
+    #archive { margin-bottom: 3rem; animation: fadeInUp 0.6s ease 0.1s backwards; }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    @media (min-width: 1200px) {
+      .archive-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .archive-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 500px) {
+      .archive-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+    }
+
+    .archive-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+    }
+    .archive-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    .archive-card:active { transform: translateY(0) scale(1); }
+
+    .archive-thumb {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .archive-thumb svg,
+    .archive-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .archive-meta {
+      padding: 0.55rem 0.65rem;
+      border-top: 1px solid var(--border);
+    }
+    .archive-date {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .archive-title {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    @media (max-width: 600px) {
+      .archive-meta {
+        padding: 0.45rem 0.55rem;
+      }
+      .archive-date {
+        font-size: 0.55rem;
+        margin-bottom: 0.1rem;
+      }
+      .archive-title {
+        font-size: 0.57rem;
+      }
+    }
+      font-size: 0.62rem;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── EMPTY STATE ────────────────────────────────────────────── */
+    .empty-state {
+      border: 1px dashed var(--border);
+      border-radius: var(--r);
+      padding: 2.5rem 1rem;
+      text-align: center;
+    }
+    .empty-state .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.4;
+    }
+    .empty-state p {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── MODAL OVERLAY ──────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,8,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      padding: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--r) * 1.5);
+      max-width: 440px;
+      width: 100%;
+      max-height: 90dvh;
+      overflow-y: auto;
+      animation: slideUp 0.22s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .modal-header {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-close {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 0.2rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: none;
+      transition: all 0.15s;
+    }
+    .modal-close:hover { background: var(--bg); color: var(--text); }
+    .modal-content { padding: 0; }
+    .modal-content svg,
+    .modal-content img { width: 100%; height: auto; }
+
+    /* ── YOUTUBE SECTION ────────────────────────────────────────── */
+    .youtube-section {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      animation: fadeInUp 0.5s ease 0.2s backwards;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .youtube-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+      display: block;
+    }
+    
+    /* YouTube Thumbnail with play button */
+    .youtube-thumbnail-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      background: #000;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .youtube-thumbnail-wrap:hover {
+      transform: scale(1.02);
+    }
+    .youtube-thumbnail-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .youtube-thumbnail-wrap:hover .youtube-thumbnail-img {
+      opacity: 1;
+    }
+    .youtube-play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 16px rgba(10, 95, 255, 0.3);
+    }
+    .youtube-thumbnail-wrap:hover .youtube-play-btn {
+      transform: translate(-50%, -50%) scale(1.15);
+      box-shadow: 0 8px 24px rgba(10, 95, 255, 0.5);
+    }
+    .youtube-thumbnail-wrap:active .youtube-play-btn {
+      transform: translate(-50%, -50%) scale(0.95);
+    }
+    
+    .youtube-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .youtube-btn {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 500;
+      padding: 0.7rem 1.2rem;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .youtube-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.15);
+      transition: left 0.4s ease;
+    }
+    .youtube-btn:hover::before {
+      left: 100%;
+    }
+    .youtube-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(10, 95, 255, 0.3);
+    }
+    .youtube-btn:active {
+      transform: translateY(0);
+    }
+    .youtube-btn-secondary {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .youtube-btn-secondary:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+
+    /* ── FOOTER ─────────────────────────────────────────────────── */
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0 2rem;
+      text-align: center;
+    }
+    .footer-text {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      line-height: 2;
+    }
+    .footer-text a {
+      color: var(--accent);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .footer-text a:hover { border-color: var(--accent); }
+
+    @media (max-width: 600px) {
+      footer {
+        padding: 1rem 0 1.5rem;
+      }
+      .footer-text {
+        font-size: 0.55rem;
+        line-height: 1.8;
+      }
+    }
+
+    /* ── LOADING SKELETON ───────────────────────────────────────── */
+    .skeleton {
+      background: linear-gradient(90deg, var(--border) 25%, var(--bg) 50%, var(--border) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 4px;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-inner">
+        <div>
+          <p class="site-tag">Tech Brief · Daily</p>
+          <h1 class="site-name">DELASAC</h1>
+          <p class="site-desc">Perspectiva diaria sobre tecnología de vanguardia</p>
+        </div>
+        <div class="live-dot" id="live-label">actualizado hoy</div>
+      </div>
+    </header>
+
+    <!-- FEATURED -->
+    <section id="featured">
+      <p class="section-label">Última entrega</p>
+      <div id="featured-container">
+        <!-- JS renders here -->
+        <div class="empty-state">
+          <div class="icon">◫</div>
+          <p>El infográfico de hoy<br>aparecerá aquí.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHIVE -->
+    <section id="archive">
+      <p class="section-label">Archivo</p>
+      <div id="archive-container" class="archive-grid">
+        <!-- JS renders here -->
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p class="footer-text">
+        DELASAC · Ciencia y tecnología en español<br>
+        <a href="https://youtube.com/@DelaSac" target="_blank">YouTube</a>
+        &nbsp;·&nbsp;
+        <a href="https://instagram.com/delasac" target="_blank">Instagram</a>
+        &nbsp;·&nbsp;
+        Generado con Claude Vision API
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="featured-date" id="modal-date"></span>
+        <button class="modal-close" onclick="closeModal()">✕ cerrar</button>
+      </div>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </div>
+
+  <script>
+    // ── FORMAT DATE ─────────────────────────────────────────────
+    function formatDate(iso) {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+    function shortDate(iso) {
+      const d = new Date(iso + 'T00:00:00');
+      return d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    }
+
+    // ── MODAL ───────────────────────────────────────────────────
+    function openModal(item) {
+      document.getElementById('modal-date').textContent = formatDate(item.date);
+      document.getElementById('modal-content').innerHTML = item.svg
+        ? item.svg
+        : `<img src="${item.file}" alt="${item.title}" loading="lazy" />`;
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('modal') && !e.target.classList.contains('modal-close')) return;
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // ── RENDER FEATURED ─────────────────────────────────────────
+    function renderFeatured(item) {
+      const wrap = document.getElementById('featured-container');
+      const today = new Date().toISOString().slice(0,10);
+      const isToday = item.date === today;
+      
+      // Construir contenido de imágenes
+      let imagesHtml = '';
+      if (item.photo && item.scan) {
+        imagesHtml = `
+          <div class="featured-images-wrap">
+            <div class="featured-img-col" style="position: relative;">
+              <label>Original</label>
+              <img src="${item.photo}" alt="Original: ${item.title}" loading="eager" />
+            </div>
+            <div class="featured-img-col" style="position: relative;">
+              <label>Digitalizado</label>
+              <img src="${item.scan}" alt="Scan: ${item.title}" loading="eager" />
+            </div>
+          </div>`;
+      } else if (item.svg) {
+        imagesHtml = `<div class="featured-img-wrap">${item.svg}</div>`;
+      } else {
+        imagesHtml = `<div class="featured-img-wrap"><img src="${item.file}" alt="${item.title}" loading="eager" /></div>`;
+      }
+      
+      // YouTube section con thumbnail
+      let youtubeHtml = '';
+      if (item.videoUrl && item.videoId) {
+        const thumbUrl = `https://img.youtube.com/vi/${item.videoId}/maxresdefault.jpg`;
+        youtubeHtml = `
+          <div class="youtube-section">
+            <span class="youtube-label">▶ Explora el proceso</span>
+            <div class="youtube-thumbnail-wrap" onclick="this.style.pointerEvents='none'; window.open('${item.videoUrl}', '_blank');">
+              <img src="${thumbUrl}" alt="Video: ${item.title}" class="youtube-thumbnail-img" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 320 180%22%3E%3Crect fill=%22%23222%22 width=%22320%22 height=%22180%22/%3E%3C/svg%3E'">
+              <div class="youtube-play-btn">▶</div>
+            </div>
+            <div class="youtube-links">
+              <a href="${item.videoUrl}" target="_blank" class="youtube-btn">▶ Ver en YouTube</a>
+              <a href="https://www.youtube.com/@DelaSac?sub_confirmation=1" target="_blank" class="youtube-btn youtube-btn-secondary">+ Suscribirse</a>
+            </div>
+          </div>`;
+      }
+      
+      wrap.innerHTML = `
+        <div class="featured-card">
+          <div class="featured-meta">
+            <span class="featured-date">${formatDate(item.date)}</span>
+            ${isToday ? '<span class="featured-badge">hoy</span>' : ''}
+          </div>
+          ${imagesHtml}
+          <div class="featured-footer">
+            <span class="featured-title">${item.title}</span>
+            <span class="featured-count">${item.items || ''}${item.items ? ' temas' : ''}</span>
+          </div>
+          ${youtubeHtml}
+        </div>`;
+    }
+
+    // ── RENDER ARCHIVE ───────────────────────────────────────────
+    function renderArchive(items) {
+      const grid = document.getElementById('archive-container');
+      if (!items.length) {
+        grid.innerHTML = '';
+        return;
+      }
+      grid.innerHTML = items.map(item => `
+        <div class="archive-card" onclick="openModal(${JSON.stringify(item).replace(/"/g,'&quot;')})">
+          <div class="archive-thumb">
+            ${item.svg ? item.svg : `<img src="${item.file}" alt="${item.title}" loading="lazy" />`}
+          </div>
+          <div class="archive-meta">
+            <span class="archive-date">${shortDate(item.date)}</span>
+            <span class="archive-title">${item.title}</span>
+          </div>
+        </div>`).join('');
+    }
+
+    // ── LOAD MANIFEST ────────────────────────────────────────────
+    async function loadManifest() {
+      try {
+        const r = await fetch('infographics/manifest.json?t=' + Date.now());
+        if (!r.ok) throw new Error('No manifest');
+        const data = await r.json();
+        const sorted = data.sort((a, b) => b.date.localeCompare(a.date));
+
+        // For items with external SVG files, load them
+        await Promise.all(sorted.map(async item => {
+          if (!item.svg && item.file && item.file.endsWith('.svg')) {
+            try {
+              const sr = await fetch(item.file + '?t=' + Date.now());
+              if (sr.ok) item.svg = await sr.text();
+            } catch {}
+          }
+          
+          // Extract video ID from YouTube URL
+          if (item.videoUrl) {
+            const match = item.videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\?]+)/);
+            if (match && match[1]) {
+              item.videoId = match[1];
+            }
+          }
+        }));
+
+        if (sorted.length > 0) renderFeatured(sorted[0]);
+        if (sorted.length > 1) renderArchive(sorted.slice(1));
+
+        // Update live label
+        const today = new Date().toISOString().slice(0,10);
+        const liveEl = document.getElementById('live-label');
+        if (sorted[0]?.date === today) {
+          liveEl.textContent = 'actualizado hoy';
+        } else {
+          liveEl.textContent = shortDate(sorted[0]?.date || today);
+          liveEl.style.cssText = '--accent:#7A776F';
+        }
+      } catch {
+        // No manifest yet — leave empty state
+      }
+    }
+
+    loadManifest();
+  </script>
+</body>
+</html>

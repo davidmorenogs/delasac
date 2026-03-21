@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 688"
+     font-family="'IBM Plex Sans','Helvetica Neue',sans-serif">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@300;400;500&amp;display=swap');
+    </style>
+  </defs>
+
+  <rect width="390" height="688" fill="#FFFFFF"/>
+  <rect width="390" height="110" fill="#F5F3EE"/>
+  <line x1="0" y1="110" x2="390" y2="110" stroke="#C8C5BC" stroke-width="1"/>
+  <text x="20" y="26"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" font-weight="500" letter-spacing="2"
+    fill="#0A5FFF" text-anchor="start">SATURDAY · TECH BRIEF</text>
+  <text x="20" y="50"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="24" font-weight="600" letter-spacing="-0.5"
+    fill="#1A1814">TECH BRIEF - MARZO 2026</text>
+  <text x="370" y="26"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" fill="#7A776F"
+    text-anchor="end">21 MAR 2026</text>
+  <text x="20" y="94"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">Noticias tecnológicas del día</text>
+  <rect x="20" y="106" width="32" height="2" fill="#0A5FFF" rx="1"/>
+  <text x="20" y="145"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" fill="#C8C5BC">01</text>
+  <rect x="42" y="133" width="25.0" height="15" rx="2" fill="#EFF3FF"/>
+  <text x="48" y="144"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" font-weight="500"
+    fill="#0A5FFF">IA</text>
+  <text x="20" y="154"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">OpenAI lanza GPT-4.5 con mejoras en</text>
+  <text x="20" y="171"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">razonamiento</text>
+  <text x="20" y="190"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">Nueva versión con capacidades multimodales</text>
+  <text x="20" y="204"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">mejoradas</text>
+  <line x1="20" y1="228" x2="370" y2="228" stroke="#C8C5BC" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <text x="20" y="255"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" fill="#C8C5BC">02</text>
+  <rect x="42" y="243" width="100" height="15" rx="2" fill="#EFF3FF"/>
+  <text x="48" y="254"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" font-weight="500"
+    fill="#0A5FFF">Semiconductores</text>
+  <text x="20" y="264"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">TSMC anuncia planta en Arizona lista para</text>
+  <text x="20" y="281"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">2024</text>
+  <text x="20" y="300"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">Primera fábrica de chips a 3nm en EE.UU.</text>
+  <line x1="20" y1="324" x2="370" y2="324" stroke="#C8C5BC" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <text x="20" y="351"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" fill="#C8C5BC">03</text>
+  <rect x="42" y="339" width="57.5" height="15" rx="2" fill="#EFF3FF"/>
+  <text x="48" y="350"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" font-weight="500"
+    fill="#0A5FFF">Espacio</text>
+  <text x="20" y="360"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">NASA lanza telescopio espacial de próxima</text>
+  <text x="20" y="377"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">generación</text>
+  <text x="20" y="396"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">Sucesora del James Webb con mayor resolución</text>
+  <text x="20" y="410"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">infrarroja</text>
+  <line x1="20" y1="434" x2="370" y2="434" stroke="#C8C5BC" stroke-width="0.5" stroke-dasharray="3,3"/>
+  <text x="20" y="461"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="9" fill="#C8C5BC">04</text>
+  <rect x="42" y="449" width="100" height="15" rx="2" fill="#EFF3FF"/>
+  <text x="48" y="460"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" font-weight="500"
+    fill="#0A5FFF">Ciberseguridad</text>
+  <text x="20" y="470"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">Vulnerabilidad crítica en 50 millones de</text>
+  <text x="20" y="487"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="13.5" font-weight="500"
+    fill="#1A1814">dispositivos</text>
+  <text x="20" y="506"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">Afecta a routers WiFi y módems antiguos. Parches</text>
+  <text x="20" y="520"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-weight="300"
+    fill="#7A776F">disponibles</text>
+  <rect x="20" y="552" width="3" height="18" fill="#0A5FFF" rx="1"/>
+  <text x="32" y="565"
+    font-family="'IBM Plex Sans',sans-serif"
+    font-size="11" font-style="italic"
+    fill="#7A776F">DELASAC - Daily Tech Brief</text>
+  <line x1="0" y1="646" x2="390" y2="646" stroke="#C8C5BC" stroke-width="0.5"/>
+  <text x="20" y="660"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" fill="#7A776F">DELASAC · delasac.com</text>
+  <text x="370" y="660"
+    font-family="'IBM Plex Mono',monospace"
+    font-size="8.5" fill="#C8C5BC"
+    text-anchor="end">4 TEMAS</text>
+</svg>
