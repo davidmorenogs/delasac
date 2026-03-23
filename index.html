@@ -418,7 +418,7 @@
 
     .archive-thumb {
       width: 100%;
-      aspect-ratio: 3/4;
+      aspect-ratio: 4/3;
       background: #fff;
       overflow: hidden;
       display: flex;
@@ -430,7 +430,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top;
+      object-position: center;
     }
     .archive-meta {
       padding: 0.55rem 0.65rem;
@@ -874,7 +874,7 @@
       grid.innerHTML = items.map(item => `
         <div class="archive-card" onclick="openModal(${JSON.stringify(item).replace(/"/g,'&quot;')})">
           <div class="archive-thumb">
-            ${item.svg ? item.svg : `<img src="${item.file}" alt="${item.title}" loading="lazy" />`}
+            ${item.svg ? item.svg : `<img src="${item.scan}" alt="${item.title}" loading="lazy" />`}
           </div>
           <div class="archive-meta">
             <span class="archive-date">${shortDate(item.date)}</span>
