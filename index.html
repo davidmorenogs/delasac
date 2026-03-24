@@ -874,7 +874,7 @@
       grid.innerHTML = items.map(item => `
         <div class="archive-card" onclick="openModal(${JSON.stringify(item).replace(/"/g,'&quot;')})">
           <div class="archive-thumb">
-            ${item.svg ? item.svg : `<img src="${item.scan}" alt="${item.title}" loading="lazy" />`}
+            ${item.scan ? `<img src="${item.scan}" alt="Scan ${item.title}" loading="lazy" />` : (item.svg ? item.svg : `<img src="${item.photo}" alt="${item.title}" loading="lazy" />`)}
           </div>
           <div class="archive-meta">
             <span class="archive-date">${shortDate(item.date)}</span>
