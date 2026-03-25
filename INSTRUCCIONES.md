@@ -5,18 +5,16 @@
 ```
 dailytech/
 ├── index.html                           ← Landing page responsiva
-├── scripts/
-│   └── generate_infographic.py          ← Script principal
+├── update-daily.sh                      ← Script principal
 ├── infographics/
-│   ├── manifest.json                    ← Índice de infográficos (auto-generado)
+│   ├── manifest.json                    ← Índice de infográficos
 │   ├── 2026-03-20/
-│   │   ├── photo.jpg                    ← Foto original manuscrita (jpg)
-│   │   ├── scan.png                     ← Escaneo digitalizado
-│   │   └── 2026-03-20-tech-brief-marzo-2026.svg  ← Infográfico generado
+│   │   ├── photo.jpg                    ← Foto original manuscrita
+│   │   └── scan.png                     ← Escaneo digitalizado
 │   ├── 2026-03-21/
 │   │   ├── photo.jpg
-│   │   ├── scan.png
-│   │   └── ...
+│   │   └── scan.png
+│   └── ...
 └── requirements.txt
 ```
 
@@ -25,51 +23,26 @@ dailytech/
 ### Sintaxis básica
 
 ```bash
-python scripts/generate_infographic.py <foto_para_extraer> --photo <original.HEIC> --scan <scan.png> [opciones]
+./update-daily.sh <photo.jpg> <scan.png> "<video_url>"
 ```
 
 ### Parámetros
 
-- `<foto_para_extraer>`: Imagen para extraer contenido (puede ser la misma que `--photo`)
-- `--photo`: Ruta a la foto original manuscrita (JPG, PNG, HEIC)* 
-- `--scan`: Ruta al escaneo digitalizado (PNG, JPG)
-- `--video`: (Opcional) URL del video de YouTube (ej: `https://youtu.be/TC_doATsgJY?si=...`)
-- `--date`: (Opcional) Fecha YYYY-MM-DD (por defecto: hoy)
-- `--no-push`: (Opcional) Solo genera localmente, no publica en GitHub
-
-*HEIC se convierte automáticamente a JPG
+- `photo.jpg`: Ruta a la foto original manuscrita
+- `scan.png`: Ruta al escaneo digitalizado
+- `video_url`: URL completa de YouTube (ej: `https://youtu.be/abc123def456`)
 
 ### Ejemplos
 
-**Generación básica (sin publicar)**
+**Desde la carpeta del proyecto**
 ```bash
-python scripts/generate_infographic.py photo.jpg --photo photo.jpg --scan scan.png --no-push
+cd "/Users/da_mo/Desktop/6. CONTENT/13. LANDING PAGE"
+./update-daily.sh ~/Downloads/photo.jpg ~/Downloads/scan.png "https://youtu.be/abc123def456"
 ```
 
-**Con video de YouTube**
+**Con rutas completas**
 ```bash
-python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --video "https://youtu.be/TC_doATsgJY?si=rzgGUH4hp73FfqSQ" \
-  --no-push
-```
-
-**Con fecha personalizada**
-```bash
-python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --date 2026-03-25 \
-  --no-push
-```
-
-**Publicar en GitHub (con auto-redeploy en Vercel)**
-```bash
-python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --video "https://youtu.be/TC_doATsgJY?si=rzgGUH4hp73FfqSQ"
+./update-daily.sh /Users/davidmorenogs/Downloads/photo.jpg /Users/davidmorenogs/Downloads/scan.png "https://youtu.be/jAYtP8ZJRPc"
 ```
 
 ## Estructura del manifest.json
@@ -77,16 +50,25 @@ python scripts/generate_infographic.py photo.jpg \
 ```json
 [
   {
-    "date": "2026-03-20",
-    "title": "TECH BRIEF - MARZO 2026",
-    "items": 4,
-    "photo": "infographics/2026-03-20/photo.jpg",
-    "scan": "infographics/2026-03-20/scan.png",
-    "svg": "infographics/2026-03-20/2026-03-20-tech-brief-marzo-2026.svg",
-    "videoUrl": "https://youtu.be/TC_doATsgJY?si=rzgGUH4hp73FfqSQ"
+    "date": "2026-03-24",
+    "title": "TECH BRIEF - MARCH 2026",
+    "items": 0,
+    "photo": "infographics/2026-03-24/photo.jpg",
+    "scan": "infographics/2026-03-24/scan.png",
+    "svg": "",
+    "videoUrl": "https://youtu.be/abc123def456"
   }
 ]
 ```
+
+**Campos:**
+- `date`: Fecha YYYY-MM-DD
+- `title`: Título del día (generado automáticamente)
+- `items`: Contador de items (actualmente no usado)
+- `photo`: Ruta a la foto original
+- `scan`: Ruta al escaneo (mostrado como miniatura en el archivo)
+- `svg`: Campo vacío (no se genera automáticamente)
+- `videoUrl`: URL de YouTube
 
 ## Layout de la web
 
@@ -111,5 +93,6 @@ python scripts/generate_infographic.py photo.jpg \
 - Los archivos se organizan automáticamente por fecha (carpeta YYYY-MM-DD)
 - El manifest.json se ordena por fecha descendente (más reciente primero)
 - La foto original y el escaneo se muestran lado-a-lado en desktop, apilados en mobile
+- El scan.png se usa como miniatura en el historial de días anteriores
 - El video de YouTube se embebe con controles completos
-- El archivo .env contiene ANTHROPIC_API_KEY para Claude Vision
+- **NO se genera SVG automáticamente** — solo copia y organiza archivos existentes

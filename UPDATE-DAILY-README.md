@@ -10,10 +10,9 @@ El script `update-daily.sh` automáticamente:
 1. ✅ Crea carpeta `/infographics/YYYY-MM-DD/` con la fecha del día
 2. ✅ Copia tu foto original (`photo.jpg`)
 3. ✅ Copia tu escaneo (`scan.png`)
-4. ✅ Detecta tu SVG infográfico (o lo pides manual)
-5. ✅ Actualiza `manifest.json` con todos los datos
-6. ✅ Hace `git push` a GitHub
-7. ✅ **Vercel redeploya automáticamente en ~30 segundos**
+4. ✅ Actualiza `manifest.json` con todos los datos
+5. ✅ Hace `git push` a GitHub
+6. ✅ **Vercel redeploya automáticamente en ~30 segundos**
 
 ---
 
@@ -114,9 +113,6 @@ Antes de ejecutar:
 
 ### **"❌ Error en git push"**
 → Asegúrate de que GitHub esté conectado (`git remote -v`)
-
-### **"⚠️ No se encontró SVG reciente"**
-→ El script no encontró tu SVG. Cópialo manualmente a `/infographics/YYYY-MM-DD/`
 
 ---
 
