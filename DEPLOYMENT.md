@@ -81,23 +81,16 @@ Una vez conectado Vercel a tu repositorio GitHub:
 # Día 21 de marzo (viernes)
 cd "/Users/da_mo/Desktop/6. CONTENT/13. LANDING PAGE"
 
-# Tienes photo.jpg, scan.png y video
-python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --video "https://youtu.be/NEW_VIDEO_ID" \
-  --no-push
+# Tienes photo.jpg, scan.png y video URL
+./update-daily.sh ~/Downloads/photo.jpg ~/Downloads/scan.png "https://youtu.be/NEW_VIDEO_ID"
 
-# Verificar en navegador: index.html
-
-# Si todo se ve bien, publicar (sin --no-push):
-python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --video "https://youtu.be/NEW_VIDEO_ID"
-
-# El script hace: git add, git commit, git push
-# Vercel redeploya automáticamente
+# El script hace automáticamente:
+# - Crea carpeta YYYY-MM-DD
+# - Copia photo.jpg y scan.png
+# - Actualiza manifest.json
+# - git add, git commit, git push
+# - Vercel redeploya automáticamente en ~30 segundos
+```
 ```
 
 ---
@@ -143,10 +136,7 @@ Si usas ANTHROPIC_API_KEY en producción:
 ### Resumen del comando para publicar cada día
 
 ```bash
-ANTHROPIC_API_KEY="sk-ant-api..." python scripts/generate_infographic.py photo.jpg \
-  --photo photo.jpg \
-  --scan scan.png \
-  --video "https://youtu.be/VIDEO_ID"
+./update-daily.sh photo.jpg scan.png "https://youtu.be/VIDEO_ID"
 ```
 
 Final: Tu web estará en vivo en `https://delasac-XXXXX.vercel.app` (o tu dominio personalizado)

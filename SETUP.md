@@ -100,17 +100,17 @@ Y añade al inicio del script: `from dotenv import load_dotenv; load_dotenv()`
 
 1. **Haz tu resumen** en papel como siempre
 2. **Fotografía el papel** con el móvil (buena luz, papel plano)
-3. **Pasa la foto al ordenador** (AirDrop, cable, Google Drive, lo que uses)
+3. **Digitaliza el resumen** (escanea o fotografía la versión final)
 4. **Ejecuta el script:**
 
 ```bash
-# Desde la carpeta del proyecto, con el venv activado:
-python scripts/generate_infographic.py ~/Desktop/notas_hoy.jpg
+# Desde la carpeta del proyecto:
+./update-daily.sh ~/Desktop/photo.jpg ~/Desktop/scan.png "https://youtu.be/VIDEO_ID"
 ```
 
-Eso es todo. En ~1 minuto:
-- Claude lee tu papel
-- Genera el SVG
+Eso es todo. En ~30 segundos:
+- Crea carpeta del día
+- Copia photo.jpg y scan.png
 - Actualiza el manifest
 - Hace `git push`
 - Vercel redespliega
@@ -120,25 +120,22 @@ Eso es todo. En ~1 minuto:
 ## Opciones del script
 
 ```bash
-# Especificar fecha manualmente
-python scripts/generate_infographic.py foto.jpg --date 2025-03-20
+# Ejemplo con rutas completas
+./update-daily.sh /Users/tu_usuario/Downloads/photo.jpg /Users/tu_usuario/Downloads/scan.png "https://youtu.be/abc123"
 
-# Solo generar (sin publicar), para probar
-python scripts/generate_infographic.py foto.jpg --no-push
-
-# Ver ayuda
-python scripts/generate_infographic.py --help
+# Desde cualquier lugar
+/Users/da_mo/Desktop/6.\ CONTENT/13.\ LANDING\ PAGE/update-daily.sh ~/Downloads/photo.jpg ~/Downloads/scan.png "https://youtu.be/abc123"
 ```
 
 ---
 
 ## PASO 7 (opcional) — Automatizar con un alias
 
-Para que solo tengas que escribir `infographic foto.jpg`:
+Para que solo tengas que escribir `update-daily`:
 
 ```bash
 # Añade a ~/.zshrc o ~/.bashrc:
-alias infographic='cd ~/ruta/a/dailytech && source venv/bin/activate && python scripts/generate_infographic.py'
+alias update-daily='cd "/Users/da_mo/Desktop/6. CONTENT/13. LANDING PAGE" && ./update-daily.sh'
 ```
 
 ---
