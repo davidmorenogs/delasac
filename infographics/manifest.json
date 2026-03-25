@@ -1,10 +1,29 @@
-,{
-  "date": "2026-03-24",
-  "title": "TECH BRIEF - MARCH 2026",
-  "items": 0,
-  "photo": "infographics/2026-03-24/photo.jpg",
-  "scan": "infographics/2026-03-24/scan.png",
-  "svg": "infographics/2026-03-24/infogr.svg",
-  "videoUrl": "https://youtu.be/jAYtP8ZJRPc"
-}
+[
+  {
+    "date": "2026-03-24",
+    "title": "TECH BRIEF - MARCH 2026",
+    "items": 0,
+    "photo": "infographics/2026-03-24/photo.jpg",
+    "scan": "infographics/2026-03-24/scan.png",
+    "svg": "",
+    "videoUrl": "https://youtu.be/jAYtP8ZJRPc"
+  },
+  {
+    "date": "2026-03-23",
+    "title": "TECH BRIEF - MARCH 2026",
+    "items": 0,
+    "photo": "infographics/2026-03-23/photo.jpg",
+    "scan": "infographics/2026-03-23/scan.png",
+    "svg": "",
+    "videoUrl": "https://youtu.be/hwW4xxwDYn8"
+  },
+  {
+    "date": "2026-03-20",
+    "title": "TECH BRIEF - MARZO 2026",
+    "items": 4,
+    "photo": "infographics/2026-03-20/photo.jpg",
+    "scan": "infographics/2026-03-20/scan.png",
+    "svg": "infographics/2026-03-20/2026-03-21-tech-brief-marzo-2026.svg",
+    "videoUrl": "https://youtu.be/TC_doATsgJY?si=rzgGUH4hp73FfqSQ"
+  }
 ]

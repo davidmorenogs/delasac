@@ -105,10 +105,10 @@ fi
 
 # Encontrar el SVG que acabamos de copiar
 SVG_BASENAME=$(ls "$INFOGRAPHIC_DIR"/*.svg 2>/dev/null | xargs -n1 basename | head -1)
-SVG_PATH="infographics/$TODAY/$SVG_BASENAME"
+SVG_PATH=""
 
-if [ -z "$SVG_BASENAME" ]; then
-  SVG_PATH="infographics/$TODAY/infogr.svg"
+if [ -n "$SVG_BASENAME" ]; then
+  SVG_PATH="infographics/$TODAY/$SVG_BASENAME"
 fi
 
 # Crear/actualizar manifest.json con la entrada del día
@@ -125,16 +125,16 @@ JSON_ENTRY="{
   \"videoUrl\": \"$VIDEO_URL\"
 }"
 
-# Si manifest no existe, criar como array
+# Si manifest no existe, crear como array
 if [ ! -f "$MANIFEST" ]; then
   echo "[$JSON_ENTRY]" > "$MANIFEST"
   echo -e "${GREEN}✅ Manifest creado${NC}"
 else
-  # Agregar entrada nueva (simple: reemplaza el penúltimo carácter ] con nueva entry)
-  # Esto es básico pero funciona para este caso
+  # Leer el manifest existente y agregar la nueva entrada al principio
   temp=$(mktemp)
-  head -n -1 "$MANIFEST" > "$temp"
-  echo ",$JSON_ENTRY" >> "$temp"
+  echo "[$JSON_ENTRY," > "$temp"
+  # Remover la primera y última línea del manifest existente (los corchetes)
+  sed '1d;$d' "$MANIFEST" >> "$temp"
   echo "]" >> "$temp"
   mv "$temp" "$MANIFEST"
   echo -e "${GREEN}✅ Manifest actualizado${NC}"
