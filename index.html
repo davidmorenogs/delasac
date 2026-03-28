@@ -921,8 +921,29 @@
           liveEl.textContent = shortDate(sorted[0]?.date || today);
           liveEl.style.cssText = '--accent:#7A776F';
         }
-      } catch {
-        // No manifest yet — leave empty state
+      } catch (error) {
+        console.error('LOAD MANIFEST FAILED:', error);
+
+        const wrap = document.getElementById('featured-container');
+        const grid = document.getElementById('archive-container');
+        const liveEl = document.getElementById('live-label');
+
+        if (wrap) {
+          wrap.innerHTML = `
+            <div class="empty-state">
+              <div class="icon">⚠</div>
+              <p>Error cargando los datos.<br>Intenta recargar o revisa <code>infographics/manifest.json</code>.</p>
+            </div>`;
+        }
+
+        if (grid) {
+          grid.innerHTML = '';
+        }
+
+        if (liveEl) {
+          liveEl.textContent = 'error de carga';
+          liveEl.style.cssText = '--accent:#F59E0B';
+        }
       }
     }
 
